@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Leaderboard — BOU Result Companion</title>
     <link rel="stylesheet" href="css/style.css" />
+    <link rel="icon" type="image/x-icon" href="img/bou-notes-logo.png" />
     <style>
       .leaderboard-controls {
         margin-bottom: 24px;
@@ -115,8 +116,19 @@
       <!-- Results Table Card -->
       <div class="card" id="tableContainer">
         <!-- Loading State -->
+        <!-- Loading State -->
         <div id="loadingState" class="status-state">
-          Fetching rankings from server...
+          <img
+            src="img/cute-loading.gif"
+            alt="Loading"
+            style="
+              width: 80px;
+              height: 80px;
+              display: block;
+              margin: 0 auto 8px;
+            "
+          />
+          Fetching rankings...
         </div>
 
         <!-- Data Table -->
