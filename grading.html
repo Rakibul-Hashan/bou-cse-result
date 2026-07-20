@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Grading System Explained — BOU Result Companion</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<nav class="site-nav">
+  <div class="site-nav-inner">
+    <a href="index.html" class="brand">Result Companion <span class="tag">Unofficial</span></a>
+    <div class="nav-links">
+      <a href="index.html">Check Result</a>
+      <a href="grading.html" aria-current="page">Grading System</a>
+      <a href="faq.html">FAQ</a>
+      <a href="about.html">About</a>
+    </div>
+  </div>
+</nav>
+
+<main>
+  <div class="page-head">
+    <p class="eyebrow">How marks become grades, and grades become CGPA</p>
+    <h1>The grading system, explained</h1>
+    <p class="lede">Straight from the CSE Program Handbook — the numeric-to-letter conversion, how continuous assessment is weighted, and the actual CGPA formula.</p>
+  </div>
+
+  <div class="card">
+
+    <div class="content-block">
+      <h2>1. Numeric grade → letter grade → grade point</h2>
+      <p>Every course result starts as a percentage, which maps to a letter grade and a grade point (GP) like this:</p>
+      <table>
+        <thead><tr><th>Numerical grade</th><th>Letter grade</th><th>Grade point</th></tr></thead>
+        <tbody>
+          <tr><td>80% or above</td><td>A+</td><td>4.00</td></tr>
+          <tr><td>75% to less than 80%</td><td>A</td><td>3.75</td></tr>
+          <tr><td>70% to less than 75%</td><td>A-</td><td>3.50</td></tr>
+          <tr><td>65% to less than 70%</td><td>B+</td><td>3.25</td></tr>
+          <tr><td>60% to less than 65%</td><td>B</td><td>3.00</td></tr>
+          <tr><td>55% to less than 60%</td><td>B-</td><td>2.75</td></tr>
+          <tr><td>50% to less than 55%</td><td>C+</td><td>2.50</td></tr>
+          <tr><td>45% to less than 50%</td><td>C</td><td>2.25</td></tr>
+          <tr><td>40% to less than 45%</td><td>D</td><td>2.00</td></tr>
+          <tr><td>Less than 40%</td><td>F (Fail)</td><td>0.00</td></tr>
+        </tbody>
+      </table>
+      <p style="margin-top:12px;">To pass a course you need at least 40% overall <em>and</em> at least 10% of the semester final exam's own marks — showing up for continuous assessment alone isn't enough.</p>
+    </div>
+
+    <div class="content-block">
+      <h2>2. How that 100% is actually built up</h2>
+      <p>For a normal theory course, marks don't just come from the final exam — 30% is continuous assessment through the semester, 70% is the semester final:</p>
+      <table>
+        <thead><tr><th>Category</th><th>Share</th></tr></thead>
+        <tbody>
+          <tr><td>Class attendance</td><td>5%</td></tr>
+          <tr><td>Assignment / case study</td><td>10%</td></tr>
+          <tr><td>Quizzes / class test</td><td>15%</td></tr>
+          <tr><td>Semester final examination</td><td>70%</td></tr>
+        </tbody>
+      </table>
+      <p style="margin-top:12px;">Laboratory courses are weighted differently — 40% continuous assessment, 60% semester final (split into problem-solving/lab test, viva-voce, and the lab notebook/report).</p>
+      <p>Attendance itself is scored on a sliding scale — for theory courses, 90%+ attendance earns full marks in that category, dropping in steps down to zero marks below 50% attendance.</p>
+    </div>
+
+    <div class="content-block">
+      <h2>3. GPA and CGPA — the actual formula</h2>
+      <p>GPA (Grade Point Average) is calculated per semester, weighted by each course's credit value:</p>
+      <div class="formula">GPA = Σ(credits passed × grade point) ÷ total credits attempted</div>
+      <p>CGPA (Cumulative GPA) is the same idea across your entire program, once you've completed it:</p>
+      <div class="formula">CGPA = Σ(credits passed × grade point earned) ÷ total credits of the program</div>
+      <p><strong>This is the part that trips people up:</strong> both formulas weight by <em>credit hours</em>, not just by counting each course equally. A 4-credit course pulls your average more than a 1-credit lab. That's also why this site shows an "average grade point" rather than claiming to show your exact official CGPA — the credit value per course isn't included in the result data this tool reads, so a straight average of grade points is close, but not identical to your true weighted CGPA.</p>
+    </div>
+
+    <div class="content-block">
+      <h2>4. What you need to graduate</h2>
+      <ul style="font-size:13.5px; color:var(--ink-soft); line-height:1.9; padding-left:20px; margin:0;">
+        <li>Complete 148 credits successfully</li>
+        <li>Obtain at least a 'D' grade in every course</li>
+        <li>Maintain a minimum overall CGPA of 2.5</li>
+        <li>Complete the program within eight academic years of your first admission</li>
+      </ul>
+    </div>
+
+    <div class="content-block">
+      <h2>5. Repeating or improving a grade</h2>
+      <p>If you get an F, you're required to retake the course in a later semester and pass it. If you get a B- or below, you're allowed — but not required — to retake it once to try to improve your grade, by paying the re-examination fee. Improvement attempts are limited to once per course, and not allowed after graduation. If a repeat attempt goes worse than your original grade, your original grade stands.</p>
+    </div>
+
+  </div>
+</main>
+
+<footer>
+  <div class="footer-inner">
+    This page summarizes the CSE Program Handbook's evaluation policy in plain language for clarity. The handbook itself is the authoritative source — if anything here seems to conflict with it or with an official notice, the handbook and official BOU communications win.
+  </div>
+</footer>
+
+</body>
+</html>

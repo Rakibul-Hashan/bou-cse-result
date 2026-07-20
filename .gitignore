@@ -1,0 +1,10 @@
+node_modules/
+.vercel
+.env
+.env.local
+
+# NEVER commit this — it's your Firebase admin credential
+serviceAccountKey.json
+
+
+.vercel

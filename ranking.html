@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Leaderboard — BOU Result Companion</title>
+<link rel="stylesheet" href="css/style.css">
+<style>
+  .leaderboard-controls {
+    margin-bottom: 24px;
+  }
+  
+  .rank-badge {
+    font-family: 'IBM Plex Mono', monospace;
+    font-weight: 600;
+    font-size: 11px;
+    padding: 3px 8px;
+    border-radius: 100px;
+    display: inline-block;
+  }
+  
+  .rank-1 { background: #fdf6e2; color: var(--gold); border: 1px solid var(--gold); }
+  .rank-2 { background: #f0f2f5; color: var(--ink-soft); border: 1px solid var(--rule); }
+  .rank-3 { background: #f8ebe6; color: #a35d3b; border: 1px solid #d9a28c; }
+  .rank-other { color: var(--ink-soft); }
+
+  .status-state {
+    padding: 32px 28px;
+    text-align: center;
+    font-size: 13.5px;
+    color: var(--ink-soft);
+  }
+
+  .table-responsive {
+    overflow-x: auto;
+  }
+
+  .table-responsive table {
+    margin: 0;
+  }
+
+  .table-responsive td, .table-responsive th {
+    padding: 12px 16px;
+  }
+</style>
+</head>
+<body>
+
+<nav class="site-nav">
+  <div class="site-nav-inner">
+    <a href="index.html" class="brand">Result Companion <span class="tag">Unofficial</span></a>
+    <div class="nav-links">
+      <a href="index.html">Check Result</a>
+      <a href="ranking.html" aria-current="page">Leaderboard</a>
+      <a href="grading.html">Grading System</a>
+      <a href="faq.html">FAQ</a>
+      <a href="about.html">About</a>
+    </div>
+  </div>
+</nav>
+
+<main>
+  <div class="page-head">
+    <p class="eyebrow">Top Student Performances</p>
+    <h1>Student Leaderboard</h1>
+    <p class="lede">Merit rankings calculated by CGPA. Filter by student name or 11-digit ID to locate individual records.</p>
+  </div>
+
+  <!-- Search Card -->
+  <div class="card lookup-card leaderboard-controls">
+    <div class="lookup-row">
+      <input type="text" id="searchInput" placeholder="Search by name or student ID..." autocomplete="off">
+    </div>
+    <div class="lookup-note">Start typing to filter students from the ranking list.</div>
+  </div>
+
+  <!-- Error Alert Container -->
+  <div class="lookup-error" id="errorState" style="margin-bottom: 24px;">
+    <span id="errorMessage">Failed to load ranking data.</span>
+    <button onclick="loadLeaderboard()" class="primary" style="padding: 4px 10px; font-size: 11.5px; margin-left: 12px;">Retry</button>
+  </div>
+
+  <!-- Results Table Card -->
+  <div class="card" id="tableContainer">
+    <!-- Loading State -->
+    <div id="loadingState" class="status-state">
+      Fetching rankings from server...
+    </div>
+
+    <!-- Data Table -->
+    <div class="table-responsive" id="tableWrapper" style="display: none;">
+      <table>
+        <thead>
+          <tr>
+            <th style="width: 90px; text-align: center;">Rank</th>
+            <th>Student</th>
+            <th>Batch</th>
+            <th style="text-align: right;">CGPA</th>
+          </tr>
+        </thead>
+        <tbody id="leaderboardBody">
+          <!-- Dynamic rows inserted here -->
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Empty Filter State -->
+    <div id="emptyState" class="status-state" style="display: none;">
+      No student records match your search criteria.
+    </div>
+  </div>
+</main>
+
+<footer>
+  <div class="footer-inner">
+    This is an independent, unofficial companion tool built by a fellow BOU student — it is not run or endorsed by Bangladesh Open University.
+  </div>
+</footer>
+
+<script>
+  let allStudents = [];
+
+  async function loadLeaderboard() {
+    const loadingState = document.getElementById('loadingState');
+    const tableWrapper = document.getElementById('tableWrapper');
+    const errorState = document.getElementById('errorState');
+    const emptyState = document.getElementById('emptyState');
+
+    loadingState.style.display = 'block';
+    tableWrapper.style.display = 'none';
+    errorState.style.display = 'none';
+    emptyState.style.display = 'none';
+
+    try {
+      const response = await fetch('/api/ranking?limit=100');
+
+      if (!response.ok) {
+        throw new Error(`Server returned status code ${response.status}`);
+      }
+
+      const data = await response.json();
+      allStudents = data.rankings || (Array.isArray(data) ? data : []);
+
+      if (!Array.isArray(allStudents)) {
+        throw new Error("Invalid response format received from API.");
+      }
+
+      renderTable(allStudents);
+      loadingState.style.display = 'none';
+    } catch (err) {
+      console.error("loadLeaderboard Error:", err);
+      document.getElementById('errorMessage').innerText = err.message || "Failed to load ranking data.";
+      loadingState.style.display = 'none';
+      errorState.style.display = 'block';
+    }
+  }
+
+  function renderTable(students) {
+    const tbody = document.getElementById('leaderboardBody');
+    const tableWrapper = document.getElementById('tableWrapper');
+    const emptyState = document.getElementById('emptyState');
+    tbody.innerHTML = '';
+
+    if (students.length === 0) {
+      tableWrapper.style.display = 'none';
+      emptyState.style.display = 'block';
+      return;
+    }
+
+    emptyState.style.display = 'none';
+    tableWrapper.style.display = 'block';
+
+    students.forEach((student, index) => {
+      const rank = student.rank || index + 1;
+      
+      let rankBadge = `<span class="rank-badge rank-other">#${rank}</span>`;
+      if (rank === 1) {
+        rankBadge = `<span class="rank-badge rank-1">#1 Gold</span>`;
+      } else if (rank === 2) {
+        rankBadge = `<span class="rank-badge rank-2">#2 Silver</span>`;
+      } else if (rank === 3) {
+        rankBadge = `<span class="rank-badge rank-3">#3 Bronze</span>`;
+      }
+
+      const tr = document.createElement('tr');
+      tr.innerHTML = `
+        <td style="text-align: center;">${rankBadge}</td>
+        <td>
+          <div style="font-weight: 600; color: var(--ink);">${escapeHtml(student.name || 'N/A')}</div>
+          <div class="course-code">${escapeHtml(student.id || '')}</div>
+        </td>
+        <td>
+          <span style="font-family: 'IBM Plex Mono', monospace; font-size: 11.5px; color: var(--ink-soft);">
+            ${escapeHtml(student.batch || 'N/A')}
+          </span>
+        </td>
+        <td class="gp" style="text-align: right; font-size: 14px; font-weight: 600; color: var(--gold);">
+          ${parseFloat(student.cgpa || 0).toFixed(2)}
+        </td>
+      `;
+      tbody.appendChild(tr);
+    });
+  }
+
+  function escapeHtml(str) {
+    return String(str)
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;")
+      .replace(/'/g, "&#039;");
+  }
+
+  document.getElementById('searchInput').addEventListener('input', (e) => {
+    const query = e.target.value.toLowerCase().trim();
+    const filtered = allStudents.filter(s => 
+      (s.name && s.name.toLowerCase().includes(query)) ||
+      (s.id && s.id.toLowerCase().includes(query))
+    );
+    renderTable(filtered);
+  });
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', loadLeaderboard);
+  } else {
+    loadLeaderboard();
+  }
+</script>
+</body>
+</html>

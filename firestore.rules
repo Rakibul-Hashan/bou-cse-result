@@ -1,0 +1,11 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Deny all direct client reads/writes. Only the Admin SDK
+    // (used server-side in the Vercel functions and the seed script)
+    // can touch this data — the Admin SDK bypasses these rules entirely.
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}

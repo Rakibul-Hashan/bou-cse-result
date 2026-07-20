@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BOU Result Companion — Check Your Result & CGPA</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<nav class="site-nav">
+  <div class="site-nav-inner">
+    <a href="index.html" class="brand">Result Companion <span class="tag">Unofficial</span></a>
+    <div class="nav-links">
+      <a href="index.html" aria-current="page">Check Result</a>
+      <a href="grading.html">Grading System</a>
+      <a href="faq.html">FAQ</a>
+      <a href="about.html">About</a>
+    </div>
+  </div>
+</nav>
+
+<main>
+  <div class="page-head">
+    <p class="eyebrow">BSc in CSE &middot; Bangladesh Open University</p>
+    <h1>Check your result, with your CGPA already worked out</h1>
+    <p class="lede">Enter your student ID to see your semester results the way the grading system actually explains them — grade points, semester averages, and progress toward your degree. Only you can see your own result here.</p>
+  </div>
+
+  <div class="card lookup-card">
+    <div class="lookup-row">
+      <input type="text" id="idInput" placeholder="Enter your 11-digit student ID" inputmode="numeric" autocomplete="off">
+      <button class="primary" id="lookupBtn">Check Result</button>
+    </div>
+    <p class="lookup-note">Same ID format as the official site — e.g. <code>22052801003</code>. No account or login needed.</p>
+    <div class="lookup-error" id="lookupError"></div>
+  </div>
+
+  <div class="card" id="resultArea"></div>
+</main>
+
+<footer>
+  <div class="footer-inner">
+    This is an independent, unofficial companion tool built by a fellow BOU student — it is not run or endorsed by Bangladesh Open University. Results shown are computed for clarity and may not exactly match your official transcript. For anything official — grade disputes, transcripts, certificates — use BOU's official result portal and registrar's office.
+  </div>
+</footer>
+
+<script src="js/app.js"></script>
+</body>
+</html>

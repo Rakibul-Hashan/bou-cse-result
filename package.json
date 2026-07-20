@@ -1,0 +1,14 @@
+{
+  "name": "bou-result-companion",
+  "version": "2.0.0",
+  "description": "Unofficial BOU CSE result lookup and CGPA companion — Vercel + Firestore",
+  "scripts": {
+    "start": "vercel dev"
+  },
+  "dependencies": {
+    "firebase-admin": "^12.5.0"
+  },
+  "devDependencies": {
+    "vercel": "^37.14.0"
+  }
+}
